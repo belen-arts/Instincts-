@@ -4,7 +4,7 @@ let shape = ""; // Current shape to draw
 function setup() {
   createCanvas(800, 800);
   serial = new p5.SerialPort(); // Create a new serial port instance
-  serial.open('/dev/ttyUSB0'); // Replace with Arduino port??? no sure if it'll work 
+  serial.open('/dev/cu.usbmodem101'); // Replace with Arduino port??? no sure if it'll work 
   serial.on('data', serialEvent); // Callback for when new data arrives
 }
 function draw() {
