@@ -1,3 +1,4 @@
+let portName = '/dev/cu.usbmodem101'; // Serial port name
 let serial; // Variable to hold serial connection
 let shape = ""; // Current shape to draw
 
