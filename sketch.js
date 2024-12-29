@@ -21,7 +21,7 @@ function draw() {
     rect(width / 2 - 50, height / 2 - 50, 100, 100); // Square
   } else if (shape === "triangle") {
     triangle(width / 2, height / 2 - 50, width / 2 - 50, height / 2 + 50, width / 2 + 50, height / 2 + 50); // Triangle
-  } else if (shape === "star") {
+  } else if (shape === "rectangle") {
     rect(width / 2 - 50, height - 50, 200, 200); // Rectangle
     }
     endShape(CLOSE);
