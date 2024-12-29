@@ -22,16 +22,10 @@ function draw() {
   } else if (shape === "triangle") {
     triangle(width / 2, height / 2 - 50, width / 2 - 50, height / 2 + 50, width / 2 + 50, height / 2 + 50); // Triangle
   } else if (shape === "star") {
-    rect(); // Rectangle
-    for (let i = 0; i < 10; i++) {
-      let angle = TWO_PI / 10 * i;
-      let r = i % 2 === 0 ? 50 : 20;
-      vertex(width / 2 + cos(angle) * r, height / 2 + sin(angle) * r);
+    rect(width / 2 - 50, height - 50, 200, 200); // Rectangle
     }
     endShape(CLOSE);
   }
-}
-
 function serialEvent() {
   let data = serial.readLine().trim(); // Read serial data
   if (data) {
