@@ -1,12 +1,20 @@
-let portName = '/dev/cu.usbmodem101'; // Serial port name
+let port;
 let serial; // Variable to hold serial connection
 let shape = ""; // Current shape to draw
 
 function setup() {
   createCanvas(800, 800);
-  serial = new p5.SerialPort(); // Create a new serial port instance
-  serial.open('/dev/cu.usbmodem101'); // Replace with Arduino port??? no sure if it'll work 
-  serial.on('data', serialEvent); // Callback for when new data arrives
+  port = createSerial();
+  port.open('Arduino', 9600);
+  let usedPorts = usedSerialPorts();
+if (usedPorts.length > 0) {
+  port.open(usedPorts[0], 9600);
+}
+
+
+  // serial = new p5.SerialPort(); // Create a new serial port instance
+  // serial.open('/dev/cu.usbmodem101'); // Replace with Arduino port??? no sure if it'll work 
+  // serial.on('data', serialEvent); // Callback for when new data arrives
 }
 function draw() {
   background(220);
