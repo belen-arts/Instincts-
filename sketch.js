@@ -1,7 +1,6 @@
 let port;
 let connectBtn;
-let myVal = 0;
-let shape = "";
+let shape = ""; // Declare shape globally
 
 function setup() {
   createCanvas(800, 800);
@@ -11,32 +10,39 @@ function setup() {
   connectBtn = createButton('Connect to Arduino');
   connectBtn.position(80, 200);
   connectBtn.mousePressed(connectBtnClick);
+}
 
+function draw() {
+  background(220);
+  fill(50);
+  rect(50, 50, 50, 50);
 
-  function draw() {
-    background(220);
-    fill(50);
-    rect(50, 50, 50, 50);
+  // Removed the commented-out line
+  // let shape = port.readUntil("\n"); //read each line
 
-    let shape = port.readUntil("\n").trim(); // Read each line and trim whitespace
-   
-    // Shapes.. 
-    if (shape === "circle") {
-      ellipse(width / 2, height / 2, 100, 100); // Circle
-    } else if (shape === "square") {
-      square(width / 2 - 50, height / 2 - 50, 100, 100); // Square
-    } else if (shape === "triangle") {
-      triangle(width / 2, height / 2 - 50, width / 2 - 50, height / 2 + 50, width / 2 + 50, height / 2 + 50); // Triangle
-    } else if (shape === "rectangle") {
-      rect(width / 2 - 50, height / 2 - 50, 200, 100); // Rectangle
-    }
-
-  function connectBtnClick() {
-    if (!port.opened()) {
-      port.open('Arduino', 9600);
-    } else {
-      port.close();
-    }
+  // Shapes info here 
+  if (shape === "Circle") {
+    ellipse(width / 2, height / 2, 100, 100); // Circle
+  } else if (shape === "Square") {
+    square(width / 2 - 50, height / 2 - 50, 100, 100); // Square
+  } else if (shape === "Triangle") {
+    triangle(width / 2, height / 2 - 50, width / 2 - 50, height / 2 + 50, width / 2 + 50, height / 2 + 50); // Triangle
+  } else if (shape === "Rectangle") {
+    rect(width / 2 - 50, height - 50, 200, 200); // Rectangle
   }
 }
+
+function serialEvent() {
+  let data = port.readUntil("\n").trim(); // Read and trim data
+  if (data) {
+    shape = data; // Update shape based on resistor classification
+  }
+}
+
+function connectBtnClick() {
+  if (!port.opened()) {
+    port.open('Arduino', 9600);
+  } else {
+    port.close();
+  }
 }
