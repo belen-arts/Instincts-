@@ -28,11 +28,16 @@ function draw() {
   }
  }
 
+// function serialEvent() {
+//   let data = port.readUntil("\n").trim(); // Read and trim data
+//   if (data) {
+//    shape = data; // Update shape based on resistor classification
+//   }
+// }
+
 function serialEvent() {
-  let data = port.readUntil("\n").trim(); // Read and trim data
-  if (data) {
-    shape = data; // Update shape based on resistor classification
-  }
+  let inData = port.readLine().trim();
+  console.log("Received:", inData); // Log incoming data
 }
 
 function connectBtnClick() {
