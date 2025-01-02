@@ -1,6 +1,6 @@
 let port;
 let connectBtn;
-let shape = ""; // Declare shape globally
+let shape = "NO SHAPE"; // Declare shape globally
 
 function setup() {
   createCanvas(800, 800);
@@ -14,11 +14,6 @@ function setup() {
 
 function draw() {
   background(220);
-  fill(50);
-  rect(50, 50, 50, 50);
-
-  // Removed the commented-out line
-  // let shape = port.readUntil("\n"); //read each line
 
   // Shapes info here 
   if (shape === "Circle") {
@@ -29,8 +24,9 @@ function draw() {
     triangle(width / 2, height / 2 - 50, width / 2 - 50, height / 2 + 50, width / 2 + 50, height / 2 + 50); // Triangle
   } else if (shape === "Rectangle") {
     rect(width / 2 - 50, height - 50, 200, 200); // Rectangle
+  } else if (shape === "NO SHAPE") {
   }
-}
+ }
 
 function serialEvent() {
   let data = port.readUntil("\n").trim(); // Read and trim data
