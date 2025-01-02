@@ -6,40 +6,42 @@ function setup() {
   createCanvas(800, 800);
 
   port = createSerial();
-
+  port.on('data', serialEvent); // Attach the serialEvent callback ????
   connectBtn = createButton('Connect to Arduino');
   connectBtn.position(80, 200);
   connectBtn.mousePressed(connectBtnClick);
 }
 
 function draw() {
-  background(220);
+  background(220); 
+  fill(100, 150, 255); 
 
-  // Shapes info here 
+  // Draw shapes based on currentShape
   if (shape === "Circle") {
-    ellipse(width / 2, height / 2, 100, 100); // Circle
+    ellipse(width / 2, height / 2, 100, 100); 
   } else if (shape === "Square") {
-    square(width / 2 - 50, height / 2 - 50, 100, 100); // Square
+    rect(width / 2 - 50, height / 2 - 50, 100, 100); 
   } else if (shape === "Triangle") {
-    triangle(width / 2, height / 2 - 50, width / 2 - 50, height / 2 + 50, width / 2 + 50, height / 2 + 50); // Triangle
+    triangle(
+      width / 2, height / 2 - 50,
+      width / 2 - 50, height / 2 + 50,
+      width / 2 + 50, height / 2 + 50
+    );
   } else if (shape === "Rectangle") {
-    rect(width / 2 - 50, height - 50, 200, 200); // Rectangle
-  } else if (shape === "NO SHAPE") {
+    rect(width / 2 - 75, height / 2 - 25, 150, 50);
+  } else {
+    textSize(20);
+    textAlign(CENTER, CENTER);
+    fill(0);
+    text("Insert a resistor!", width / 2, height / 2);
   }
- }
-
-// function serialEvent() {
-//   let data = port.readUntil("\n").trim(); // Read and trim data
-//   if (data) {
-//    shape = data; // Update shape based on resistor classification
-//   }
-// }
-
-function serialEvent() {
-  let inData = port.readLine().trim();
-  console.log("Received:", inData); // Log incoming data
 }
-
+function serialEvent() {
+  let inData = port.readLine().trim(); // Read the incoming serial data
+  if (inData) { // Ensure data is not empty
+    console.log("Received:", inData); // Log the received data to the console
+  }
+}
 function connectBtnClick() {
   if (!port.opened()) {
     port.open('Arduino', 9600);
