@@ -5,8 +5,24 @@ let shape = "NO SHAPE"; // Declare shape globally
 function setup() {
   createCanvas(800, 800);
 
-  port = createSerial();
-  port.on('data', serialEvent); // Attach the serialEvent callback ????
+  // Initialize the serial port
+  port = new p5.WebSerial();
+
+  // List available ports
+  port.getPorts();
+
+  // Open the port when available
+  port.on('portavailable', () => {
+    port.open().then(() => {
+      console.log('Port opened');
+    }).catch((err) => {
+      console.error('Failed to open port:', err);
+    });
+  });
+
+  // Attach the serialEvent callback
+  port.on('data', serialEvent);
+
   connectBtn = createButton('Connect to Arduino');
   connectBtn.position(80, 200);
   connectBtn.mousePressed(connectBtnClick);
@@ -36,6 +52,7 @@ function draw() {
       fill(0);
       text("Insert a resistor!", width / 2, height / 2);
 }
+}
 
 function serialEvent() {
   let inData = port.readLine().trim(); // Read the incoming serial data
@@ -48,11 +65,21 @@ function serialEvent() {
 }
 
 function connectBtnClick() {
-  if (!port.opened()) {
-    port.open('Arduino', 9600);
-    console.log("Connected let's go!");
+  if (!port.isOpen()) {
+    port.requestPort().then(() => {
+      port.open().then(() => {
+        console.log('Port opened');
+      }).catch((err) => {
+        console.error('Failed to open port:', err);
+      });
+    }).catch((err) => {
+      console.error('Failed to request port:', err);
+    });
   } else {
-    port.close();
+    port.close().then(() => {
+      console.log('Port closed');
+    }).catch((err) => {
+      console.error('Failed to close port:', err);
+    });
   }
-}
 }
