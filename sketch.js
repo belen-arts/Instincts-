@@ -55,3 +55,4 @@ function connectBtnClick() {
     port.close();
   }
 }
+}
