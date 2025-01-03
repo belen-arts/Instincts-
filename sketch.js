@@ -23,28 +23,33 @@ function draw() {
     rect(width / 2 - 50, height / 2 - 50, 100, 100); 
   } else if (shape === "Triangle") {
     triangle(
-      width / 2, height / 2 - 50,
+      width / 2, height / 2 - 50,          
       width / 2 - 50, height / 2 + 50,
       width / 2 + 50, height / 2 + 50
     );
   } else if (shape === "Rectangle") {
     rect(width / 2 - 75, height / 2 - 25, 150, 50);
-  } else {
-    textSize(20);
-    textAlign(CENTER, CENTER);
-    fill(0);
-    text("Insert a resistor!", width / 2, height / 2);
-  }
+  } else if (shape === "NO SHAPE") {
+      textSize(20);             
+      textAlign(CENTER, CENTER);
+      fill(0);
+      text("Insert a resistor!", width / 2, height / 2);
+}
 }
 function serialEvent() {
   let inData = port.readLine().trim(); // Read the incoming serial data
   if (inData) { // Ensure data is not empty
     console.log("Received:", inData); // Log the received data to the console
+    if (inData.startsWith("Shape:")) {
+      shape = inData.split(":")[1].trim(); // Update shape based on received data
+    }
   }
 }
+
 function connectBtnClick() {
   if (!port.opened()) {
     port.open('Arduino', 9600);
+    console.log("Connected let's go!");
   } else {
     port.close();
   }
