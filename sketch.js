@@ -6,7 +6,7 @@ function setup() {
   createCanvas(800, 800);
 
   port = createSerial();
-  port.on('data', serialEvent); // Attach the serialEvent callback ????
+  port.on('data', serialEvent); // Attach the serialEvent callback ???? giving ERROR 
   connectBtn = createButton('Connect to Arduino');
   connectBtn.position(80, 200);
   connectBtn.mousePressed(connectBtnClick);
