@@ -11,31 +11,31 @@ function setup() {
   connectBtn.mousePressed(connectBtnClick);
 }
 
-// function draw() {
-//   background(220); 
-//   fill(100, 150, 255); 
+function draw() {
+  background(220); 
+  fill(100, 150, 255); 
 
-//   // Draw shapes based on currentShape
-//   if (shape === "Circle") {
-//     ellipse(width / 2, height / 2, 100, 100); 
-//   } else if (shape === "Square") {
-//     rect(width / 2 - 50, height / 2 - 50, 100, 100); 
-//   } else if (shape === "Triangle") {
-//     triangle(
-//       width / 2, height / 2 - 50,
-//       width / 2, height / 2 - 50,          
-//       width / 2 - 50, height / 2 + 50,
-//       width / 2 + 50, height / 2 + 50
-//     );
-//   } else if (shape === "Rectangle") {
-//     rect(width / 2 - 75, height / 2 - 25, 150, 50);
-//   } else if (shape === "NO SHAPE") {
-//       textSize(20);             
-//       textAlign(CENTER, CENTER);
-//       fill(0);
-//       text("Insert a resistor!", width / 2, height / 2);
-// }
-// }
+  // Draw shapes based on currentShape
+  if (shape === "Circle") {
+    ellipse(width / 2, height / 2, 100, 100); 
+  } else if (shape === "Square") {
+    rect(width / 2 - 50, height / 2 - 50, 100, 100); 
+  } else if (shape === "Triangle") {
+    triangle(
+      width / 2, height / 2 - 50,
+      width / 2, height / 2 - 50,          
+      width / 2 - 50, height / 2 + 50,
+      width / 2 + 50, height / 2 + 50
+    );
+  } else if (shape === "Rectangle") {
+    rect(width / 2 - 75, height / 2 - 25, 150, 50);
+  } else if (shape === "NO SHAPE") {
+      textSize(20);             
+      textAlign(CENTER, CENTER);
+      fill(0);
+      text("Insert a resistor!", width / 2, height / 2);
+}
+}
 function serialEvent() {
   console.log("serialEvent called"); // Log to ensure function is called
   let inData = port.readLine().trim(); // Read the incoming serial data
