@@ -67,24 +67,3 @@ function connectBtnClick() {
   }
 }
 
-// Ensure serialEvent is called when data is available
-// port.on('data', serialEvent);
-// function serialEvent() {
-//   let inData = port.readLine().trim(); // Read the incoming serial data
-//   if (inData) { // Ensure data is not empty
-//     console.log("Received:", inData); // Log the received data to the console
-//     if (inData.startsWith("Voltage:")) {
-//       let voltage = inData.split(":")[1].trim(); // Extract and process voltage data if needed
-//       console.log("Voltage:", voltage); // Log the voltage data to the console
-//     } else if (inData.startsWith("Shape:")) {
-//       shape = inData.split(":")[1].trim(); // Update shape based on received data
-//     }
-//   }
-// }
-// function connectBtnClick() {
-//   if (!port.opened()) {
-//     port.open('Arduino', 9600);
-//   } else {
-//     port.close();
-//   }
-// }
