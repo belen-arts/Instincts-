@@ -39,30 +39,7 @@ function draw() {
     text("Insert a resistor!", width / 2, height / 2);
   }
 }
-// function draw() {
-//   background(220); 
-//   fill(100, 150, 255); 
 
-//   // Draw shapes based on current Shape
-//   if (shape === "2") {
-//     ellipse(width / 2, height / 2, 100, 100); 
-//   } else if (shape === "3") {
-//     rect(width / 2 - 50, height / 2 - 50, 100, 100); 
-//   } else if (shape === "4") {
-//     triangle(
-//       width / 2, height / 2 - 50,
-//       width / 2 - 50, height / 2 + 50,
-//       width / 2 + 50, height / 2 + 50
-//     );
-//   } else if (shape === "1") {
-//     rect(width / 2 - 75, height / 2 - 25, 150, 50);
-//   } else if (shape === "0") {
-//       textSize(20);             
-//       textAlign(CENTER, CENTER);
-//       fill(0);
-//       text("Insert a resistor!", width / 2, height / 2);
-// }
-// } 
 function serialEvent() {
   let inData = port.readStringUntil('\n');
   if (inData.length > 0) {
