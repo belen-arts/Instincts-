@@ -34,6 +34,11 @@ function draw() {
       fill(0);
       text("Insert a resistor!", width / 2, height / 2);
 }
+// Display the voltage value for debugging purposes ?
+  textSize(16);
+  textAlign(CENTER);
+  fill(0);
+  text("Voltage: " + voltage.toFixed(2) + " V", width / 2, height - 30);
 }
 function serialEvent() {
   console.log("serialEvent called"); // Log to ensure function is called
