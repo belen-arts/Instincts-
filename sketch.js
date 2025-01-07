@@ -4,25 +4,7 @@ let shape = "NO SHAPE"; // Declare shape globally
 
 function setup() {
   createCanvas(800, 800);
-
-  // Initialize the serial port
-  port = new p5.WebSerial();
-
-  // List available ports
-  port.getPorts();
-
-  // Open the port when available
-  port.on('portavailable', () => {
-    port.open().then(() => {
-      console.log('Port opened');
-    }).catch((err) => {
-      console.error('Failed to open port:', err);
-    });
-  });
-
-  // Attach the serialEvent callback
-  port.on('data', serialEvent);
-
+ port = createSerial();
   connectBtn = createButton('Connect to Arduino');
   connectBtn.position(80, 200);
   connectBtn.mousePressed(connectBtnClick);
@@ -63,23 +45,10 @@ function serialEvent() {
     }
   }
 }
-
 function connectBtnClick() {
-  if (!port.isOpen()) {
-    port.requestPort().then(() => {
-      port.open().then(() => {
-        console.log('Port opened');
-      }).catch((err) => {
-        console.error('Failed to open port:', err);
-      });
-    }).catch((err) => {
-      console.error('Failed to request port:', err);
-    });
+  if (!port.opened()) {
+    port.open('Arduino', 9600);
   } else {
-    port.close().then(() => {
-      console.log('Port closed');
-    }).catch((err) => {
-      console.error('Failed to close port:', err);
-    });
+    port.close();
   }
 }
