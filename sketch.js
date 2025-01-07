@@ -15,7 +15,7 @@ function draw() {
   background(220); 
   fill(100, 150, 255); 
 
-  // Draw shapes based on currentShape
+  // Draw shapes based on current Shape
   if (shape === "Circle") {
     ellipse(width / 2, height / 2, 100, 100); 
   } else if (shape === "Square") {
@@ -23,7 +23,6 @@ function draw() {
   } else if (shape === "Triangle") {
     triangle(
       width / 2, height / 2 - 50,
-      width / 2, height / 2 - 50,          
       width / 2 - 50, height / 2 + 50,
       width / 2 + 50, height / 2 + 50
     );
