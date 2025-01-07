@@ -1,7 +1,6 @@
 let port;
 let connectBtn;
-let shape = "NO SHAPE"; // Declare shape globally
-let voltage = 0 
+let shape  = "0"; // Declare shape globally
 
 function setup() {
   createCanvas(800, 800);
@@ -16,44 +15,32 @@ function draw() {
   fill(100, 150, 255); 
 
   // Draw shapes based on current Shape
-  if (shape === "Circle") {
+  if (shape === "2") {
     ellipse(width / 2, height / 2, 100, 100); 
-  } else if (shape === "Square") {
+  } else if (shape === "3") {
     rect(width / 2 - 50, height / 2 - 50, 100, 100); 
-  } else if (shape === "Triangle") {
+  } else if (shape === "4") {
     triangle(
       width / 2, height / 2 - 50,
       width / 2 - 50, height / 2 + 50,
       width / 2 + 50, height / 2 + 50
     );
-  } else if (shape === "Rectangle") {
+  } else if (shape === "1") {
     rect(width / 2 - 75, height / 2 - 25, 150, 50);
-  } else if (shape === "NO SHAPE") {
+  } else if (shape === "0") {
       textSize(20);             
       textAlign(CENTER, CENTER);
       fill(0);
       text("Insert a resistor!", width / 2, height / 2);
 }
-// Display the voltage value for debugging purposes ?
-  textSize(16);
-  textAlign(CENTER);
-  fill(0);
-  text("Voltage: " + voltage.toFixed(2) + " V", width / 2, height - 30);
-}
+} 
+
 function serialEvent() {
   console.log("serialEvent called"); // Log to ensure function is called
-  let inData = port.readLine().trim(); // Read the incoming serial data
+ // let inData = port.readLine().trim(); // Read the incoming serial data
 
   if (inData) { // Ensure data is not empty
-    console.log("Received:", inData); // Log the received data
-    let dataParts = inData.split(","); // Split the voltage and shape
-    if (dataParts.length === 2) {
-      // Parse voltage and shape
-      voltage = parseFloat(dataParts[0].trim()); // Get voltage value
-      shape = dataParts[1].trim(); // Get shape
-    } else {
-      console.log("Invalid data format:", inData); // Error if format is wrong
-    }
+    console.log("Received data:", inData); // Log the exact data received from Arduino
   }
 }
 
