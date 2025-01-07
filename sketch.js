@@ -13,11 +13,7 @@ function draw() {
   background(220);
   fill(100, 150, 255);
 
-  // Display raw serial data for debugging
-  if (port.available() > 0) {
-    let rawData = port.read();
-    console.log("Raw Data:", rawData);
-  }
+  console.log("Shape value:", shape); // Log shape
 
   // Visual feedback for shapes
   if (shape === "2") {
@@ -39,12 +35,16 @@ function draw() {
     text("Insert a resistor!", width / 2, height / 2);
   }
 }
-
-function serialEvent() {
-  let inData = port.readStringUntil('\n');
-  if (inData.length > 0) {
-    shape = inData.trim(); // Update shape based on serial input
-    console.log("Serial Data Received:", shape); // Log the received shape
+function serialEvent() { // Called whenever data is available
+  let rawData = port.readStringUntil('\n');
+  if (rawData) {
+    rawData = rawData.trim(); // Clean any whitespace or newline
+    console.log("Received Data:", rawData); // Log the raw data
+    if (["0", "1", "2", "3", "4"].includes(rawData)) {
+      shape = rawData; // Update shape if valid
+    } else {
+      console.log("Invalid Data Received:", rawData); // Log invalid data
+    }
   }
 }
 function connectBtnClick() {
