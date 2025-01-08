@@ -1,7 +1,6 @@
 let port;
 let connectBtn;
-let val  = 0; // Declare shape as a int not a string!
-
+let shape  = 0; // Declare shape as a int not a string!
 
 function setup() {
   createCanvas(windowHeight, windowWidth);
@@ -13,12 +12,11 @@ function setup() {
 function draw() {
   background(220);
 
-  // Display raw serial data for debugging
-  if (port.available() > 0) { 
-    let rawData = port.read();
-    console.log("Raw Data:", rawData);
-    shape = rawData;
-  }
+let receivedData = port.readUntil('\n');
+if (receivedData) {
+  shape = parseInt(receivedData.trim()); // Parse the data into an integer
+  console.log("Received Shape Value: " + shape); // Log the parsed value directly
+}
   if (shape === 1) {
     fill(255, 0, 0); // Red color
     rect(width / 2 - 100, height / 2 - 50, 200, 100); // Rectangle shape
