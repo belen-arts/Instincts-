@@ -1,8 +1,8 @@
 let port;
 let connectBtn;
 let shape  = [1 , 2 , 3 , 4]; // array of possible shapes to be received so they can be temporarily stored in the shape variable - for animal creation later... 
-let animal = [];
-let selectedShapes = [];
+let animal = []; // array to store the selected shapes to then create an animal 
+let selectedShapes = []; // array to store the selected shapes
 
 function setup() {
   createCanvas(windowHeight, windowWidth);
@@ -48,6 +48,7 @@ if (receivedData) {
     fill(255,255,0);
     triangle(700, 600, 800, 600, 750, 500);
   } 
+}
 function processShapeData() {
   if (shape >=1 && shape <= 4) {
     selectedShapes.push(shape)
@@ -56,8 +57,16 @@ function processShapeData() {
   else if (selectedShapes.length === 2) {
     combineShapes();
     selectedShapes = []; // RERUN array to reset array. 
+   }
+else {
+  console.log("No shapes selected.");
 }
-}
+  function selectedShapes() {
+    let head = selectedShapes[0];
+    head (selectedShapes[0], 230, 200); 
+    let body = selectedShapes[1];
+    body (selectedShapes[1], 330, 200);
+  }
 } 
 function connectBtnClick() {
   if (!port.opened()) {
