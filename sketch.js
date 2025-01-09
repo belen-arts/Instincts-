@@ -60,7 +60,7 @@ function drawCircle(x, y, size) {
 }
 function drawSquare(x, y, size) {
   fill('#07C');
-  rect(x, y, siez, 150, 150); // square to draw 
+  rect(x, y, size, 150, 150); // square to draw 
 }
 function drawTriangle(x, y, size) {
   fill(255, 255, 0);
@@ -88,8 +88,20 @@ function processShapeData() {
     if (selectedShapes.length === 2) {
   let Head = drawSelectedShapes[selectedShapes[0] - 1]; // !! important to relate the shape to draw to the correct index in the array of selected shapes eg. 4 - 1 = 3 so the triangle will be drawn
   let Body = drawSelectedShapes [selectedShapes[1] - 1]; // this gives you the second shape.
-  Head(300, 200, 100);
-  Body(300, 400, 200);
+
+  let headSize = 100; 
+  let bodySize = 300;
+
+  let headX = width / 2;
+  let headY = height / 3;
+
+  let bodyX = width / 2;
+  let bodyY = headY + headSize / 2 + bodySize / 2; // body is positioned below the head
+
+  // draw the head and body...
+  Head(headX, headY, headSize);
+  Body(bodyX, bodyY, bodySize);
+
   console.log("Animal created! Head: " + selectedShapes[0] + " Body: " + selectedShapes[1]);
   }
   }
