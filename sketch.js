@@ -51,25 +51,27 @@ if (receivedData) {
   } 
 }
 
-function drawRectangle(x, y) {
+function drawRectangle(x, y, size) {
   fill(255, 0, 0);
-  rect(x, y, 200, 100); // rectangle to draw 
+  rect(x, y, size, size / 2); // rectangle to draw 
 } 
-function drawCircle(x, y) {
+function drawCircle(x, y, size) {
   fill(0, 255, 0);
   ellipse(x, y, 150, 150); // circle to draw 
 }
-function drawSquare(x, y) {
+function drawSquare(x, y, size) {
   fill('#07C');
   rect(x, y, 150, 150); // square to draw 
 }
-function drawTriangle(x, y) {
+function drawTriangle(x, y, size) {
   fill(255, 255, 0);
   triangle(x - 75, y + 75, x + 75, y + 75, x, y - 75); // triangle to draw 
 }
 
 function processShapeData() {
   if (shape >=1 && shape <= 4) {
+    console.log("Current Value: " + shape);
+
     if (selectedShapes.length < 2) { // limit the choices taken into the array 
     selectedShapes.push(shape);
     console.log("Selected Shapes: " + selectedShapes);
