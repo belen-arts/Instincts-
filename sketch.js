@@ -32,9 +32,9 @@ if (receivedData) {
   } else if (shape === 3) {
     fill('#07C'); // Blue 
     rect(width / 2 - 75, height / 2 - 75, 150, 150); // Square 
-  } else if (shape === 4) {
-    fill(255, 255, 0); // Yellow 
-    triangle(width / 2 - 75, height / 2 + 75, width / 2 + 75, height / 2 + 75, width / 2, height / 2 - 75); // Triangle 
+  // } else if (shape === 4) {
+  //   fill(255, 255, 0); // Yellow 
+  //   triangle(width / 2 - 75, height / 2 + 75, width / 2 + 75, height / 2 + 75, width / 2, height / 2 - 75); // Triangle 
   } else { 
     fill(0); 
     textSize(32);
@@ -68,22 +68,23 @@ function drawTriangle(x, y, size) {
 }
 
 function processShapeData() {
-  if (shape >=1 && shape <= 4) {
+  if (shape >=1 && shape <= 4) { 
     console.log("Current Value: " + shape);
 
     if (selectedShapes.length < 2) { // limit the choices taken into the array 
     selectedShapes.push(shape);
     console.log("Selected Shapes: " + selectedShapes);
   }
-}
-  else if (selectedShapes.length === 2) {
+   if (selectedShapes.length === 2) {
     combineShapes();
     selectedShapes = []; // clear the selected shapes array after the shapes have been combined.
-   } else {
+   }
+  } else {
   console.log("No shapes selected.");
 }
 }
   function combineShapes() { // moved outside of draw to avoid being called multiple times. 
+    console.log("Combining shapes???");
     if (selectedShapes.length === 2) {
   let Head = drawSelectedShapes[selectedShapes[0] - 1]; // !! important to relate the shape to draw to the correct index in the array of selected shapes eg. 4 - 1 = 3 so the triangle will be drawn
   let Body = drawSelectedShapes [selectedShapes[1] - 1]; // this gives you the second shape.
