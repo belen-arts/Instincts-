@@ -19,10 +19,10 @@ function draw() {
 
 let receivedData = port.readUntil('\n');
 if (receivedData) {
-  shape = parseInt(receivedData.trim()); // Parse the data into an integer
-  console.log("Received Shape Value: " + shape); // Log the parsed value directly
+  shape = parseInt(receivedData.trim()); 
+  console.log("Received Shape Value: " + shape);  
 }
-  processShapeData(); {
+  processShapeData ();  
   if (shape === 1) {
     fill(255, 0, 0); 
     rect(width / 2 - 100, height / 2 - 50, 200, 100); // Rectangle shape
@@ -35,8 +35,8 @@ if (receivedData) {
   } else if (shape === 4) {
     fill(255, 255, 0); // Yellow color
     triangle(width / 2 - 75, height / 2 + 75, width / 2 + 75, height / 2 + 75, width / 2, height / 2 - 75); // Triangle shape
-  } else {
-    fill(0);
+  } else { 
+    fill(0); 
     textSize(32);
     text("INSERT TWO SHAPES.", 250, 400); 
     fill(255, 0, 0);
@@ -47,24 +47,18 @@ if (receivedData) {
     rect(450,525,150,150);
     fill(255,255,0);
     triangle(700, 600, 800, 600, 750, 500);
+  } 
+function processShapeData() {
+  if (shape >=1 && shape <= 4) {
+    selectedShapes.push(shape)
+    console.log("Selected Shapes: " + selectedShapes);
   }
-}
-combineShapes(); {
-  if (shape === 1 || shape === 2 || shape === 3 || shape === 4) {
-    selectedShapes.push(shapes[int(animal) - 1]);
-
-  if (selectedShapes.lenght === 1) {
-    create.animal = shape 
-  
-  if (selectedShapes.length === 2) { // ensure that the selected shapes are only two and not more or less?
-    animals.push(new Animal(selectedShapes[0], selectedShapes[1]));
-    selectedShapes = [];
-}
-  }
+  else if (selectedShapes.length === 2) {
+    combineShapes();
+    selectedShapes = []; // RERUN array to reset array. 
 }
 }
-}
-
+} 
 function connectBtnClick() {
   if (!port.opened()) {
     console.log("Opening port...");
