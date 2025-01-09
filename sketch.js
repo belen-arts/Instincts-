@@ -2,13 +2,12 @@ let port;
 let connectBtn;
 let shape  = [1 , 2 , 3 , 4]; // array of possible shapes to be received so they can be temporarily stored in the shape variable - for animal creation later... 
 let animal = []; // array to store the selected shapes to then create an animal 
-let selectedShapes = [1 , 2 , 3 , 4]; // array to store the selected shapes
+let selectedShapes = []; // array to store the selected shapes so must be empty!
 let drawSelectedShapes = [drawRectangle, drawCircle, drawSquare, drawTriangle]; // array of shapes to be drawn
 
 function setup() {
   createCanvas(windowHeight, windowWidth);
-  textAlign(CENTER, CENTER);
-
+  
   port = createSerial();
   connectBtn = createButton('Connect to Arduino');
   connectBtn.position(20, 20);
@@ -57,11 +56,11 @@ function drawRectangle(x, y, size) {
 } 
 function drawCircle(x, y, size) {
   fill(0, 255, 0);
-  ellipse(x, y, 150, 150); // circle to draw 
+  ellipse(x, y, size, size); // circle to draw 
 }
 function drawSquare(x, y, size) {
   fill('#07C');
-  rect(x, y, 150, 150); // square to draw 
+  rect(x, y, siez, 150, 150); // square to draw 
 }
 function drawTriangle(x, y, size) {
   fill(255, 255, 0);
@@ -80,18 +79,19 @@ function processShapeData() {
   else if (selectedShapes.length === 2) {
     combineShapes();
     selectedShapes = []; // clear the selected shapes array after the shapes have been combined.
-   }
-else {
+   } else {
   console.log("No shapes selected.");
 }
 }
   function combineShapes() { // moved outside of draw to avoid being called multiple times. 
+    if (selectedShapes.length === 2) {
   let Head = drawSelectedShapes[selectedShapes[0] - 1]; // !! important to relate the shape to draw to the correct index in the array of selected shapes eg. 4 - 1 = 3 so the triangle will be drawn
-  let Body = drawSelectedShapes [selectedShapes[1] - 1];
+  let Body = drawSelectedShapes [selectedShapes[1] - 1]; // this gives you the second shape.
   Head(300, 200, 100);
   Body(300, 400, 200);
+  console.log("Animal created! Head: " + selectedShapes[0] + " Body: " + selectedShapes[1]);
   }
-
+  }
 function connectBtnClick() {
   if (!port.opened()) {
     console.log("Opening port...");
