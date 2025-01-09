@@ -49,10 +49,6 @@ if (receivedData) {
     fill(255,255,0);
     triangle(700, 600, 800, 600, 750, 500);
   } 
-  if (selectedShapes.length === 2) {
-    combineShapes();
-    selectedShapes = []; // clear the selected shapes array after the shapes have been combined. 
-  }
 }
 
 function drawRectangle(x, y) {
@@ -74,15 +70,14 @@ function drawTriangle(x, y) {
 
 function processShapeData() {
   if (shape >=1 && shape <= 4) {
-    selectedShapes.push(shape)
+    if (selectedShapes.length < 2) { // limit the choices taken into the array 
+    selectedShapes.push(shape);
     console.log("Selected Shapes: " + selectedShapes);
   }
+}
   else if (selectedShapes.length === 2) {
     combineShapes();
-    let head = selectedShapes[0];
-    head(300,200); // sizes of head
-    let body = selectedShapes[1];
-    body(300,400); // sizes of body
+    selectedShapes = []; // clear the selected shapes array after the shapes have been combined.
    }
 else {
   console.log("No shapes selected.");
