@@ -49,6 +49,10 @@ if (receivedData) {
     fill(255,255,0);
     triangle(700, 600, 800, 600, 750, 500);
   } 
+  if (selectedShapes.length === 2) {
+    combineShapes();
+    selectedShapes = []; // clear the selected shapes array after the shapes have been combined. 
+  }
 }
 
 function drawRectangle(x, y) {
@@ -70,7 +74,6 @@ function drawTriangle(x, y) {
 
 function processShapeData() {
   if (shape >=1 && shape <= 4) {
-    console.log(Array.isArray(selectedShapes)); // debug to sheck if selectedShapes is an array
     selectedShapes.push(shape)
     console.log("Selected Shapes: " + selectedShapes);
   }
