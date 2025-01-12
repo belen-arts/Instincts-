@@ -105,6 +105,14 @@ function processShapeData() {
   console.log("Animal created! Head: " + selectedShapes[0] + " Body: " + selectedShapes[1]);
   }
   }
+
+  function displayAnimals() {
+    for (let animal of animals) { // for each animal in the array of animals
+animal.update();
+animal.display();
+    }
+  }
+
 function connectBtnClick() {
   if (!port.opened()) {
     console.log("Opening port...");
