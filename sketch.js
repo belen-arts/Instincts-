@@ -30,7 +30,6 @@ if (selectedShapes.length < 2) {
   displayAnimals(); 
 }
 }
-
 function initialShapes() { 
     fill(0); 
     textSize(32);
@@ -43,7 +42,7 @@ function initialShapes() {
     rect(450,525,150,150);
     fill(255,255,0);
     triangle(700, 600, 800, 600, 750, 500);
-  } 
+} 
 
 function drawRectangle(x, y, size) {
   fill(255, 0, 0);
@@ -62,7 +61,7 @@ function drawTriangle(x, y, size) {
   triangle(x - size / 2, y + size / 2, // bottom left corner
     x + size / 2, y + size / 2, // bottom right corner
     x, y - size / 2 // top corner
-  ); // triangle to draw 
+  ); // 
 }
 
 function processShapeData() {
@@ -97,7 +96,11 @@ function processShapeData() {
   // draw the head and body...
   Head(headX, headY, headSize);
   Body(bodyX, bodyY, bodySize);
+
+  let newAnimal = new Animal(Head, Body, headX, headY, headSize, bodySize);
+  animals.push(newAnimal); // creating an object called animal
   
+
   selectedShapes = []; // clear the array so it can be used again.
   console.log("Animal created! Head: " + selectedShapes[0] + " Body: " + selectedShapes[1]);
   }
