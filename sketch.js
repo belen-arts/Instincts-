@@ -22,16 +22,17 @@ let receivedData = port.readUntil('\n');
 if (receivedData) {
   shape = parseInt(receivedData.trim()); // convert string to array 
   console.log("Received Shape Value: " + shape);  
+  processShapeData(selectedShapes);  
 }
-  processShapeData ();  
-
-if (selectedShapes.length < 2) {  
-  initialShapes();
+// Check if there are any animals in the array
+if (animals.length > 0) {
+  displayAnimals();  // Display animals if any are in the animals array
 } else {
-  displayAnimals();  
+  // Draw the initial shapes if there are no animals
+  initialShapes();
+}
+}
 
-}
-}
 
 function initialShapes() { 
  fill(0); 
@@ -118,15 +119,15 @@ this.bodyX = headX;
       this.body(this.bodyX, this.bodyY, this.bodySize);
     }
   }
-   
-  function displayAnimals() {
-    console.log("Displaying Animals... Animals Count:", animals.length); // array of animals
-    for (let animal of animals) { // for each animal in the array of animals
-animal.update();
-animal.display();
-    }
+
+function displayAnimals() {
+  for (let animal of animals) {
+    // for each animal in the array of animals
+    animal.update();
+    animal.display();
   }
-  
+}
+   
 function drawRectangle(x, y, size) {
   fill(255, 0, 0);
   rect(x - size / 2, y - size / 4, size, size / 2); // rectangle to draw 
@@ -155,4 +156,3 @@ function connectBtnClick() {
     port.close();
   }
 }
-
