@@ -28,40 +28,46 @@ if (receivedData) {
 if (selectedShapes.length < 2) {  
   initialShapes();
 } else {
-  displayAnimals(); 
+  displayAnimals();  
+
 }
 }
+
 function initialShapes() { 
-    fill(0); 
-    textSize(32);
-    text("INSERT TWO SHAPES.", 250, 400); 
+ fill(0); 
+   textSize(32);
+text("INSERT TWO SHAPES.", 250, 400); 
     fill(255, 0, 0);
-    rect(50, 550,200, 100);
+rect(50, 550,200, 100);
     fill (0,255,0);
-    ellipse(350, 600, 100, 100, 650, 550);
+ ellipse(350, 600, 100, 100, 650);
     fill('#07C');
-    rect(450,525,150,150);
+rect(450,525,150,150);
     fill(255,255,0);
-    triangle(700, 600, 800, 600, 750, 500);
+triangle(700, 600, 800, 600, 750, 500);
 } 
+let debounceTime = 500; // debounce time
+ let lastInputTime = 0;  
+
 function processShapeData() {
+  let currentTime = millis(); //time in milliseconds
+  if (currentTime - lastInputTime > debounceTime) { // only process next shape if enough time has passed 
    if (shape >= 1 && shape <= 4 && selectedShapes.length < 2) {
     selectedShapes.push(shape);
     console.log("Selected Shapes:", selectedShapes);
     if (selectedShapes.length === 2) {
       combineShapes();
     }
-
-
-
-
-
-
+  }
+  lastInputTime = currentTime; // update the last input time
   } else {
   console.log("No shapes selected.");
 }
 }
+
+
   function combineShapes() { // moved outside of draw to avoid being called multiple times. 
+    console.log("Combining shapes......................"); // function being called!!
     if (selectedShapes.length === 2) {
   let Head = drawSelectedShapes[selectedShapes[0] - 1]; // !! important to relate the shape to draw to the correct index in the array of selected shapes eg. 4 - 1 = 3 so the triangle will be drawn
   let Body = drawSelectedShapes [selectedShapes[1] - 1]; // this gives you the second shape.
@@ -87,13 +93,13 @@ function processShapeData() {
   class Animal {
     constructor(headFunc, bodyFunc, headX, headY, headSize, bodySize) {
       this.head = headFunc;
-      this.body = bodyFunc;
-      this.headX = headX;
+    this.body = bodyFunc;
+  this.headX = headX;
       this.headY = headY;
-      this.bodyX = headX;
+this.bodyX = headX;
       this.bodyY = headY + headSize / 2 + bodySize / 2;
       this.headSize = headSize;
-      this.bodySize = bodySize;
+    this.bodySize = bodySize;
       this.xVel = random(-2, 2);
       this.yVel = random(-2, 2);
     }
@@ -114,6 +120,7 @@ function processShapeData() {
   }
    
   function displayAnimals() {
+    console.log("Displaying Animals... Animals Count:", animals.length); // array of animals
     for (let animal of animals) { // for each animal in the array of animals
 animal.update();
 animal.display();
@@ -136,8 +143,7 @@ function drawTriangle(x, y, size) {
   fill(255, 255, 0);
   triangle(x - size / 2, y + size / 2, // bottom left corner
     x + size / 2, y + size / 2, // bottom right corner
-    x, y - size / 2 // top corner
-  ); // 
+    x, y - size / 2);  //
 }
 
 function connectBtnClick() {
