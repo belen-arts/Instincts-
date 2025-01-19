@@ -32,22 +32,55 @@ if (animals.length > 0) {
   initialShapes();
 }
 }
+function initialShapes() {
+  fill(0);
+  textSize(32);
+  textAlign(CENTER, CENTER);
+  text("Which shape is the most important?", width / 2, height / 5); // Centered prompt
+
+  // Draw rectangle (randomly placed)
+  fill(255, 0, 0);
+  rectMode(CENTER);
+  rect(random(width), random(height), 150, 100); // Random position with fixed size
+
+  // Draw circle (randomly placed)
+  fill(0, 255, 0);
+  ellipseMode(CENTER);
+  ellipse(random(width), random(height), 100, 100); // Random position with fixed size
+
+  // Draw square (randomly placed)
+  fill('#07C');
+  rectMode(CENTER);
+  rect(random(width), random(height), 100, 100); // Random position with fixed size
+
+  // Draw triangle (scaled to match 100x100 size)
+  fill(255, 255, 0);
+  let x1 = random(width);
+  let y1 = random(height);
+  let size = 100;
+  triangle(
+    x1, y1 + size / 2, // Bottom left
+    x1 + size, y1 + size / 2, // Bottom right
+    x1 + size / 2, y1 - size // Top
+  ); // Triangle with the same size as the square and circle
+}
+
+// function initialShapes() { 
+//  fill(0); 
+//    textSize(32);
+// text("Which shape is the most important?", 250, 400); 
+//     fill(255, 0, 0);
+// rect(50, 550,200, 100);
+//     fill (0,255,0);
+//  ellipse(350, 600, 100, 100, 650);
+//     fill('#07C');
+// rect(450,525,150,150);
+//     fill(255,255,0);
+// triangle(700, 600, 800, 600, 750, 500);
+// } 
 
 
-function initialShapes() { 
- fill(0); 
-   textSize(32);
-text("INSERT TWO SHAPES.", 250, 400); 
-    fill(255, 0, 0);
-rect(50, 550,200, 100);
-    fill (0,255,0);
- ellipse(350, 600, 100, 100, 650);
-    fill('#07C');
-rect(450,525,150,150);
-    fill(255,255,0);
-triangle(700, 600, 800, 600, 750, 500);
-} 
-let debounceTime = 500; // debounce time
+let debounceTime = 5000; // debounce time to allow more time to pick shapes 
  let lastInputTime = 0;  
 
 function processShapeData() {
@@ -65,8 +98,6 @@ function processShapeData() {
   console.log("No shapes selected.");
 }
 }
-
-
   function combineShapes() { // moved outside of draw to avoid being called multiple times. 
     console.log("Combining shapes......................"); // function being called!!
     if (selectedShapes.length === 2) {
