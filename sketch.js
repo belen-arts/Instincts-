@@ -4,6 +4,7 @@ let shape  = [1 , 2 , 3 , 4]; // array of possible shapes to be received so they
 let animals = []; // array to store the selected shapes to then create an animal 
 let selectedShapes = []; // array to store the selected shapes so must be empty!
 let drawSelectedShapes = [drawRectangle, drawCircle, drawSquare, drawTriangle]; // array of shapes to be drawn
+let showNextQuestion = false; // Flag to show the question after first shape selection
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
@@ -14,7 +15,6 @@ function setup() {
   connectBtn.mousePressed(connectBtnClick);
 
 }
-
 function draw() {
   background(220);
 
@@ -24,12 +24,16 @@ if (receivedData) {
   console.log("Received Shape Value: " + shape);  
   processShapeData(selectedShapes);  
 }
-// Check if there are any animals in the array
+// check if there are any animals in the array!!!!!!1
 if (animals.length > 0) {
   displayAnimals();  // Display animals if any are in the animals array
 } else {
   // Draw the initial shapes if there are no animals
   initialShapes();
+}
+ // 1 shape selected promt next question
+ if (showNextQuestion) {
+  displayNewQuestion();
 }
 }
 function initialShapes() {
@@ -65,21 +69,6 @@ function initialShapes() {
   ); // Triangle with the same size as the square and circle
 }
 
-// function initialShapes() { 
-//  fill(0); 
-//    textSize(32);
-// text("Which shape is the most important?", 250, 400); 
-//     fill(255, 0, 0);
-// rect(50, 550,200, 100);
-//     fill (0,255,0);
-//  ellipse(350, 600, 100, 100, 650);
-//     fill('#07C');
-// rect(450,525,150,150);
-//     fill(255,255,0);
-// triangle(700, 600, 800, 600, 750, 500);
-// } 
-
-
 let debounceTime = 5000; // debounce time to allow more time to pick shapes 
  let lastInputTime = 0;  
 
@@ -89,7 +78,12 @@ function processShapeData() {
    if (shape >= 1 && shape <= 4 && selectedShapes.length < 2) {
     selectedShapes.push(shape);
     console.log("Selected Shapes:", selectedShapes);
-    if (selectedShapes.length === 2) {
+
+   if (selectedShapes.length === 1) {
+      showNextQuestion = true; // Show the new question after first shape selection
+     }  
+
+    if (selectedShapes.length === 2) {  
       combineShapes();
     }
   }
@@ -98,6 +92,7 @@ function processShapeData() {
   console.log("No shapes selected.");
 }
 }
+
   function combineShapes() { // moved outside of draw to avoid being called multiple times. 
     console.log("Combining shapes......................"); // function being called!!
     if (selectedShapes.length === 2) {
@@ -107,7 +102,7 @@ function processShapeData() {
   let headSize = 100; 
   let bodySize = 300;
 
-  let headX = width / 2;
+  let headX = width / 2; // half the width of the canvas
   let headY = height / 3;
 
   let bodyX = width / 2;
@@ -158,7 +153,16 @@ function displayAnimals() {
     animal.display();
   }
 }
-   
+function displayNewQuestion() {
+  textSize(24);
+  textAlign(CENTER, CENTER);
+  fill(0);
+  text("What will the next person select?", width / 2, height / 2 + 100); 
+
+ showNextQuestion = false; // Reset.
+}
+
+
 function drawRectangle(x, y, size) {
   fill(255, 0, 0);
   rect(x - size / 2, y - size / 4, size, size / 2); // rectangle to draw 
@@ -187,3 +191,4 @@ function connectBtnClick() {
     port.close();
   }
 }
+
