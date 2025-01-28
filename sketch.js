@@ -34,6 +34,9 @@ if (animals.length > 0) {
  // 1 shape selected promt next question
  if (showNextQuestion) {
   displayNewQuestion();
+} // display the next question if the flag is true (heplful for debugging)
+for (let animal of animals) {
+  animal.display();
 }
 }
 function initialShapes() {
@@ -79,18 +82,24 @@ function processShapeData() {
     selectedShapes.push(shape);
     console.log("Selected Shapes:", selectedShapes);
 
-   if (selectedShapes.length === 1) {
-      showNextQuestion = true; // Show the new question after first shape selection
-     }  
+    if (selectedShapes.length === 1) {
+      showNextQuestion = true; // enable the next question display
+      console.log("First shape selected. Showing next question.......");
 
-    if (selectedShapes.length === 2) {  
-      combineShapes();
-    }
+   // delay added before allowing the second shape as this was too fast. 
+   setTimeout(() => { // built in function in Javascript (just call it!)
+    showNextQuestion = false;
+    // console.log("Ready to select the second shape."); - if needed to check the delay
+  }, 10000); // 10 seconds delay between shapes decisions
+}
+if (selectedShapes.length === 2 && !showNextQuestion) {
+  combineShapes();
+}
   }
   lastInputTime = currentTime; // update the last input time
   } else {
   console.log("No shapes selected.");
-}
+  }
 }
 
   function combineShapes() { // moved outside of draw to avoid being called multiple times. 
@@ -102,8 +111,8 @@ function processShapeData() {
   let headSize = 100; 
   let bodySize = 300;
 
-  let headX = width / 2; // half the width of the canvas
-  let headY = height / 3;
+  let headX = width / 2; // center horizontally
+  let headY = height / 3; // 1/3 from the top
 
   let bodyX = width / 2;
   let bodyY = headY + headSize / 2 + bodySize / 2; // body is positioned below the head
@@ -111,36 +120,38 @@ function processShapeData() {
   
   let newAnimal = new Animal(Head, Body, headX, headY, headSize, bodySize);
     animals.push(newAnimal); // add the new animal to the array of animals
-    console.log("Animal created! Head: " + selectedShapes[0] + " Body: " + selectedShapes[1]);
+    console.log("Animal created! Head: " + selectedShapes[0] + " Body: " + selectedShapes[1]); // check results
 
   selectedShapes = []; // clear the array so it can be used again.
   }
   }
 
-  class Animal {
+  class Animal { // completely new to me .. - class to create an animal
+
     constructor(headFunc, bodyFunc, headX, headY, headSize, bodySize) {
-      this.head = headFunc;
-    this.body = bodyFunc;
-  this.headX = headX;
-      this.headY = headY;
-this.bodyX = headX;
-      this.bodyY = headY + headSize / 2 + bodySize / 2;
-      this.headSize = headSize;
-    this.bodySize = bodySize;
-      this.xVel = random(-2, 2);
-      this.yVel = random(-2, 2);
+      this.head = headFunc; // function to draw the head
+    this.body = bodyFunc; // function to draw the body
+  this.headX = headX; // x position of the head
+      this.headY = headY; // y position of the head - same as body
+this.bodyX = headX; // x position of the body - same as head
+      this.bodyY = headY + headSize / 2 + bodySize / 2; // y position of the body - below the head
+      this.headSize = headSize; // size of the head
+    this.bodySize = bodySize; // size of the body
+
+      this.xVel = random(-2, 2); // random X speed
+      this.yVel = random(-2, 2); // random Y speed
     }
-    update() {
+    update() { // update the position of the head and body to velocity 
       this.headX += this.xVel;
       this.headY += this.yVel;
       this.bodyX += this.xVel;
       this.bodyY += this.yVel;
   
       if (this.headX < 0 || this.headX > width) this.xVel *= -1;
-      if (this.headY < 0 || this.headY > height) this.yVel *= -1;
+      if (this.headY < 0 || this.headY > height) this.yVel *= -1; // bounce off the edges.
     }
 
-    display() {
+    display() { // display the head and body
       this.head(this.headX, this.headY, this.headSize);
       this.body(this.bodyX, this.bodyY, this.bodySize);
     }
@@ -157,9 +168,7 @@ function displayNewQuestion() {
   textSize(24);
   textAlign(CENTER, CENTER);
   fill(0);
-  text("What will the next person select?", width / 2, height / 2 + 100); 
-
- showNextQuestion = false; // Reset.
+  text("What shape will the next person select?", width / 2, height / 2 + 100); 
 }
 
 
